@@ -5,7 +5,7 @@ let handler = async (m, { conn, text }) => {
   let who
   if (m.isGroup) who = cm.participant = m.mentionedJid[0]
   else who = m.chat
-  if (!who) throw 'Tag salah satu lah'
+  if (!who) throw 'Etiqueta a alguien'
   cm.key.fromMe = false
   cm.message[m.mtype] = copy(m.msg)
   txt = text.replace('@' + who.split`@`[0], '').trimStart()
@@ -17,6 +17,7 @@ let handler = async (m, { conn, text }) => {
 }
 handler.command = /^sudo$/
 handler.rowner = true
+handler.limit = true
 
 module.exports = handler
 

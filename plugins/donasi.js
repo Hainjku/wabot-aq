@@ -1,11 +1,13 @@
 let handler = async m => m.reply(`
-╭─「 Donasi • Pulsa 」
-│ • Indosat Ooredoo [081515860089]
-│ • Telkomsel [081334177340]
-╰────
-`.trim()) // Tambah sendiri kalo mau
-handler.help = ['donasi']
+┏━━━━┣ Donaciones ┫
+┣⊱  No necesito dinero pero un
+┣⊱  mensajito me hace felíz :D
+┣⊱  https://wa.me/59898310750
+┣━━━━━
+`.trim()) // Donar dinero información
+handler.help = ['donar']
 handler.tags = ['info']
-handler.command = /^dona(te|si)$/i
+handler.command = /^dona(te|r)$/i
+handler.limit = true
 
 module.exports = handler

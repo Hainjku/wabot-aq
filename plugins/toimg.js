@@ -3,7 +3,7 @@ const util = require('util')
 const { MessageType } = require('@adiwajshing/baileys')
 
 let handler  = async (m, { conn }) => {
-  if (!m.quoted) return conn.reply(m.chat, 'Tag stikernya!', m)
+  if (!m.quoted) return conn.reply(m.chat, 'Tagea el sticker!', m)
   let q = { message: { [m.quoted.mtype]: m.quoted }}
   if (/sticker/.test(m.quoted.mtype)) {
     let sticker = await conn.downloadM(q)
@@ -29,6 +29,7 @@ handler.mods = false
 handler.premium = false
 handler.group = false
 handler.private = false
+handler.limit = true
 
 handler.admin = false
 handler.botAdmin = false
@@ -36,4 +37,3 @@ handler.botAdmin = false
 handler.fail = null
 
 module.exports = handler
-

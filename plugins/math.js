@@ -1,30 +1,30 @@
 global.math = global.math ? global.math : {}
 let handler  = async (m, { conn, args, usedPrefix }) => {
   if (args.length < 1) return conn.reply(m.chat, `
-Mode: ${Object.keys(modes).join(' | ')}
+Modo: ${Object.keys(modes).join(' | ')}
 
-Contoh penggunaan: ${usedPrefix}math medium
+Ejemplo de uso: ${usedPrefix}medio matemático
 `.trim(), m)
   let mode = args[0].toLowerCase()
   if (!(mode in modes)) return conn.reply(m.chat, `
-Mode: ${Object.keys(modes).join(' | ')}
+Modo: ${Object.keys(modes).join(' | ')}
 
-Contoh penggunaan: ${usedPrefix}math medium
+Ejemplo de uso: ${usedPrefix}medio matemático
 `.trim(), m)
   let id = m.chat
-  if (id in global.math) return conn.reply(m.chat, 'Masih ada soal belum terjawab di chat ini', global.math[id][0])
+  if (id in global.math) return conn.reply(m.chat, 'Todavía hay preguntas sin responder en este chat', global.math[id][0])
   let math = genMath(mode)
   global.math[id] = [
-    await conn.reply(m.chat, `Berapa hasil dari *${math.str}*?\n\nTimeout: ${(math.time / 1000).toFixed(2)} detik\nBonus Jawaban Benar: ${math.bonus} XP`, m),
+    await conn.reply(m.chat, `Cuanto es el resultado de *${math.str}*?\n\nSe acabó el tiempo: ${(math.time / 1000).toFixed(2)} segundos\nBono de respuesta correcta: ${math.bonus} XP`, m),
     math, 4,
     setTimeout(() => {
-      if (global.math[id]) conn.reply(m.chat, `Waktu habis!\nJawabannya adalah ${math.result}`, global.math[id][0])
+      if (global.math[id]) conn.reply(m.chat, `Se acabó el tiempo!\nLa respuesta es ${math.result}`, global.math[id][0])
       delete global.math[id]
     }, math.time)
   ]
 }
-handler.help = ['math <mode>']
-handler.tags = ['game']
+handler.help = ['math <modo>']
+handler.tags = ['fun']
 handler.command = /^math/i
 
 module.exports = handler
@@ -37,7 +37,7 @@ let modes = {
   extreme: [-999999, 999999, -999999, 999999, '*/', 99999, 9999],
   impossible: [-99999999999, 99999999999, -99999999999, 999999999999, '*/', 30000, 35000],
   impossible2: [-999999999999999, 999999999999999, -999, 999, '/', 30000, 5000]
-} 
+}
 
 let operators = {
   '+': '+',

@@ -5,7 +5,7 @@ let handler = async (m, { conn, command, args }) => {
     if (isDelete) await conn.modifyChat(id, 'delete').catch(console.log)
     await conn.modifyChat(id, 'mute', -Math.floor(new Date / 1e3) * 1e3 - 1e3).catch(console.log)
   }
-  conn.reply(m.chat, chats.length + ' chat grup telah dib' + (isDelete ? 'ersihkan' : 'isukan selamanya'), m)
+  conn.reply(m.chat, chats.length + ' se ha abierto el chat grupal' + (isDelete ? 'limpio' : 'sollozar para siempre'), m)
 }
 handler.help = ['deletechat', 'deletechat group', 'mutechat', 'mutechat group']
 handler.tags = ['owner']
@@ -15,6 +15,7 @@ handler.mods = false
 handler.premium = false
 handler.group = false
 handler.private = false
+handler.limit = true
 
 handler.admin = false
 handler.botAdmin = false
@@ -22,4 +23,3 @@ handler.botAdmin = false
 handler.fail = null
 
 module.exports = handler
-

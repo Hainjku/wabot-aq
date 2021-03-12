@@ -4,9 +4,9 @@ const { MessageType } = require('@adiwajshing/baileys')
 
 let handler  = async (m, { conn, text }) => {
   if (text) conn.sendFile(m.chat, global.API('xteam', '/attp', { file: '', text }), 'attp.webp', '', m, false, { asSticker: true })
-  else throw 'Uhm...Teksnya?'
+  else throw 'Uhm ... ¿El texto?'
 }
-handler.help = ['attp <teks>']
+handler.help = ['attp <texto>']
 handler.tags = ['sticker']
 handler.command = /^attp$/i
 handler.owner = false
@@ -14,6 +14,8 @@ handler.mods = false
 handler.premium = false
 handler.group = false
 handler.private = false
+handler.limit = true
+handler.exp = 10
 
 handler.admin = false
 handler.botAdmin = false
@@ -21,4 +23,3 @@ handler.botAdmin = false
 handler.fail = null
 
 module.exports = handler
-

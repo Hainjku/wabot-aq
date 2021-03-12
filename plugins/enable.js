@@ -1,8 +1,7 @@
-let handler = async (m, { conn, usedPrefix, command, text, args, isROwner }) => {
+let handler = async (m, { usedPrefix, command, text, args }) => {
   let isEnable = /true|enable|(turn)?on/i.test(command)
   let chat = global.DATABASE._data.chats[m.chat]
   let type = (args[0] || '').toLowerCase()
-  let isAll = false
   switch (type) {
     case 'welcome':
       chat.welcome = isEnable
@@ -10,29 +9,30 @@ let handler = async (m, { conn, usedPrefix, command, text, args, isROwner }) => 
     case 'delete':
       chat.delete = isEnable
       break
-    case 'public':
-      isAll = true
-      if (!isROwner) {
-        global.dfail('rowner', m, conn)
-        throw false
-      }
-      global.opts['self'] = !isEnable
-      break
     default:
       return m.reply(`
-List option: welcome | delete | public
+Lista de opciones: welcome | delete
 
-Contoh:
+Ejemplo:
 ${usedPrefix}enable welcome
 ${usedPrefix}disable welcome
 `.trim())
   }
   m.reply(`
-*${type}* berhasil di *${isEnable ? 'nyala' : 'mati'}kan* untuk ${isAll ? 'bot ini' : 'chat ini'}
+*${type}* fue *${isEnable ? 'activado' : 'desactivado'}* exitosamente
 `.trim())
 }
-handler.help = ['en', 'dis'].map(v => v + 'able <option>')
+handler.help = ['en', 'dis'].map(v => v + 'able <opción>')
 handler.tags = ['group', 'owner']
 handler.command = /^((en|dis)able|(tru|fals)e|(turn)?o(n|ff))$/i
+handler.limit = true
+handler.owner = true
+handler.mods = false
+handler.premium = false
+handler.group = true
+handler.private = false
+
+handler.admin = true
+handler.botAdmin = true
 
 module.exports = handler

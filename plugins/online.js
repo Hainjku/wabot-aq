@@ -13,6 +13,7 @@ handler.mods = false
 handler.premium = false
 handler.group = true
 handler.private = false
+handler.limit = true
 
 handler.admin = false
 handler.botAdmin = false
@@ -20,4 +21,3 @@ handler.botAdmin = false
 handler.fail = null
 
 module.exports = handler
-

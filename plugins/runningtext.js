@@ -2,8 +2,8 @@ let handler = async (m, { conn, text }) => {
   let q
   try { q = m.quoted.download() }
   catch (e) { q = m.download() }
-  m.reply('_Sedang membuat..._\n*Mohon tunggu sekitar 1 menit*')
-  running(await q).then(vid => conn.sendFile(m.chat, vid, 'run.mp4', '*© Nurutomo*\nMade with FFmpeg', m))
+  m.reply('_Está haciendo..._\n*Espere aproximadamente 1 minuto*')
+  running(await q).then(vid => conn.sendFile(m.chat, vid, 'run.mp4', '*© Hainjku Bot*\nHecho con FFmpeg', m))
 }
 handler.help = ['run']
 handler.tags = ['tools']
@@ -53,4 +53,3 @@ function running(img, duration = 10, fps = 60) {
     //.stderr.on('data', a => console.log(a+''))
   })
 }
-

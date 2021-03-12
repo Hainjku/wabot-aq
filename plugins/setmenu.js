@@ -3,23 +3,23 @@ let handler  = async (m, { conn, command, text }) => {
   if (type == '') {
     if (text) {
       conn.menu = text
-      conn.reply(m.chat, 'Menu berhasil diatur\n' + info, m)
+      conn.reply(m.chat, 'Menú configurado correctamente\n' + info, m)
     } else {
       conn.menu = {}
-      conn.reply(m.chat, 'Menu direset', m)
+      conn.reply(m.chat, 'Menú reiniciado', m)
     }
   } else {
     conn.menu = typeof conn.menu == 'object' ? conn.menu : {}
     if (text) {
       conn.menu[type] = text
-      conn.reply(m.chat, 'Menu ' + type + ' berhasil diatur\n' + info, m)
+      conn.reply(m.chat, 'Menu ' + type + ' configurado correctamente\n' + info, m)
     } else {
       delete conn.menu[type]
-      conn.reply(m.chat, 'Menu ' + type + ' direset', m)
+      conn.reply(m.chat, 'Menu ' + type + ' Reiniciado', m)
     }
   }
 }
-handler.help = ['', 'before','header','body','footer','after'].map(v => 'setmenu' + v + ' <teks>')
+handler.help = ['', 'before','header','body','footer','after'].map(v => 'setmenu' + v + ' <texto>')
 handler.tags = ['owner']
 handler.command = /^set(menu|help|\?)(before|header|body|footer|after)?$/i
 handler.owner = true
@@ -27,6 +27,7 @@ handler.mods = false
 handler.premium = false
 handler.group = false
 handler.private = false
+handler.limit = true
 
 handler.admin = false
 handler.botAdmin = false

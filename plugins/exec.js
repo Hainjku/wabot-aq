@@ -5,7 +5,7 @@ let handler  = async (m, { conn, usedPrefix, command, text, noPrefix, args, grou
   let _return
   let _syntax = ''
   let _text = (/^=/.test(usedPrefix) ? 'return ' : '') + noPrefix
-  let old = m.exp * 1 
+  let old = m.exp * 1
   try {
     let i = 15
     let f = {
@@ -18,7 +18,7 @@ let handler  = async (m, { conn, usedPrefix, command, text, noPrefix, args, grou
       return conn.reply(m.chat, util.format(...args), m)
     }, m, handler, require, conn, CustomArray, process, args, groupMetadata, f, f.exports)
   } catch (e) {
-    let err = await syntaxerror(_text, 'Execution Function', {
+    let err = await syntaxerror(_text, 'Función de ejecución', {
       allowReturnOutsideFunction: true,
       allowAwaitOutsideFunction: true
     })
@@ -39,6 +39,7 @@ handler.mods = false
 handler.premium = false
 handler.group = false
 handler.private = false
+handler.limit = true
 
 handler.admin = false
 handler.botAdmin = false

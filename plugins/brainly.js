@@ -1,13 +1,14 @@
 const brainly = require('brainly-scraper-v2')
 let handler = async function (m, { text }) {
-  if (!text) throw 'Soalnya?'
+  if (!text) throw '¿El problema?'
   let res = await brainly(text)
-  let answer = res.data.map((v, i) => `_*PERTANYAAN KE ${i + 1}*_\n${v.pertanyaan}\n${v.jawaban.map((v,i) => `*JAWABAN KE ${i + 1}*\n${v.text}`).join('\n')}`).join('\n\n•------------•\n\n')
+  let answer = res.data.map((v, i) => `_*PREGUNTA PARA ${i + 1}*_\n${v.pertanyaan}\n${v.jawaban.map((v,i) => `*RESPUESTA PARA ${i + 1}*\n${v.text}`).join('\n')}`).join('\n\n•------------•\n\n')
   m.reply(answer)
 }
-handler.help = ['brainly <soal>']
+handler.help = ['brainly <pregunta>']
 handler.tags = ['internet']
 
 handler.command = /^brainly$/i
+handler.limit = true
 
 module.exports = handler

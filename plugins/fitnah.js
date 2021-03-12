@@ -6,7 +6,7 @@ let handler = async (m, { conn, text }) => {
   if (text.includes('@0')) who = '0@s.whatsapp.net'
   else if (m.isGroup) who = cm.participant = m.mentionedJid[0]
   else who = m.chat
-  if (!who) throw 'Tag salah satu lah'
+  if (!who) throw 'Etiqueta uno'
   cm.key.fromMe = false
   cm.message[m.mtype] = copy(m.msg)
   let sp = '@' + who.split`@`[0]
@@ -17,7 +17,13 @@ let handler = async (m, { conn, text }) => {
     }
   })
 }
-handler.command = /^(fitnah|fakereply)$/
+handler.command = /^(f|fitnah|fakereply)$/
+handler.owner = false
+handler.mods = false
+handler.premium = true
+handler.group = false
+handler.private = false
+handler.limit = true
 
 module.exports = handler
 

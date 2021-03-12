@@ -17,9 +17,10 @@ let handler = async (m, { conn, args }) => {
     conn.sendFile(m.chat, res, 'tts.opus', null, m, true)
   }
 }
-handler.help = ['tts <lang> <teks>']
+handler.help = ['tts <lang> <mensaje>']
 handler.tags = ['tools']
 handler.command = /^g?tts$/i
+handler.limit = true
 module.exports = handler
 
 function tts(text, lang = 'id') {

@@ -7,7 +7,7 @@ let handler  = async (m, { conn, usedPrefix: _p }) => {
     let limit = global.DATABASE.data.users[m.sender].limit
     let name = conn.getName(m.sender)
     let d = new Date
-    let locale = 'id'
+    let locale = 'es'
     let gmt = new Date(0).getTime() - new Date('1 January 1970').getTime()
     let weton = ['Pahing', 'Pon','Wage','Kliwon','Legi'][Math.floor(((d * 1) + gmt) / 84600000) % 5]
     let week = d.toLocaleDateString(locale, { weekday: 'long' })
@@ -35,23 +35,23 @@ let handler  = async (m, { conn, usedPrefix: _p }) => {
     let totalreg = Object.keys(global.DATABASE._data.users).length
     let rtotalreg = Object.values(global.DATABASE._data.users).filter(user => user.registered == true).length
     let tags = {
-      'main': 'Main',
-      'xp': 'Exp & Limit',
+      'main': 'Principal',
+      'xp': 'Exp & Límite',
       'sticker': 'Sticker',
-      'kerang': 'Kerang Ajaib',
-      'quotes': 'Quotes',
+      'kerang': 'Bola Mágica',
+      'quotes': 'Frases',
       'admin': 'Admin',
-      'group': 'Group',
+      'group': 'Grupo',
       'internet': 'Internet',
-      'downloader': 'Downloader',
-      'tools': 'Tools',
-      'fun': 'Fun',
-      'jadibot': 'Jadi Bot',
-      'owner': 'Owner',
+      'downloader': 'Descargador',
+      'tools': 'Herramientas',
+      'fun': 'Diversión',
+      'jadibot': 'Ser Un Bot',
+      'owner': 'Dueño',
       'host': 'Host',
-      'advanced': 'Advanced',
-      'info': 'Info',
-      '': 'No Category',
+      'advanced': 'Advanzado',
+      'info': 'Información',
+      '': 'Sin Categoría',
     }
     for (let plugin of Object.values(global.plugins))
       if (plugin && 'tags' in plugin)
@@ -74,31 +74,37 @@ let handler  = async (m, { conn, usedPrefix: _p }) => {
     }
     conn.menu = conn.menu ? conn.menu : {}
     let before = conn.menu.before || `
-╭─「 ${conn.user.name} 」
-│ Hai, %name!
-│
-│ *%exp XP*
-│ Tersisa *%limit Limit*
-│
-│ Tanggal: *%week %weton, %date*
-│ Waktu: *%time*
-│
-│ Uptime: *%uptime* (*%muptime*)
-│ Database: %rtotalreg of %totalreg
-│ Github:
-│ %github
-╰────
+┏━┣ ${conn.user.name} ┫
+┣⊱ Hᴏʟᴀ, %name﹗ 🌟
+┣⊱
+┣⊱ Visita esta página para ver como
+┣⊱funciona el bot (https://gastonvainstein.online)
+┣━━━━━━━━━━━━
+
+┏━━━━❉ Iɴғo ❉━━━━┓
+┣⊱ 📁 Dαтαвαѕe: *%totalreg números*
+┣⊱ ⌚Horα: *%time*
+┣⊱ 🕐 Tιeмpo de αcтιvιdαd: *%uptime*
+┣⊱ ⏱️ Acтιvιdαd prιɴcιpαl: *%muptime*
+┣⊱ 📆 Fecнα: *%date*
+┣⊱
+┣⊱ 👤• Uѕυαrιo Iɴғo •
+┣⊱ ✨ Eхperιeɴcια: *%exp XP*
+┣⊱ ⚠ Lίмιтe: *%limit coin(s)*
+┣━━━━━━━━━━━━
+
+┣⊱ Click *Leer más* para ver todos los comandos ⤵️
 %readmore`
-    let header = conn.menu.header || '╭─「 %category 」'
-    let body   = conn.menu.body   || '│ • %cmd%islimit'
-    let footer = conn.menu.footer || '╰────\n'
+    let header = conn.menu.header || '┏━━❉ *%category* ❉━━┓'
+    let body   = conn.menu.body   || '┣⊱ %cmd%islimit'
+    let footer = conn.menu.footer || '┣━━━━━━━━━━\n'
     let after  = conn.menu.after  || (conn.user.jid == global.conn.user.jid ? '' : `Powered by https://wa.me/${global.conn.user.jid.split`@`[0]}`) + `\n*%npmname@^%version*\n\`\`\`\%npmdesc\`\`\``
     let _text  = before + '\n'
     for (let tag in groups) {
       _text += header.replace(/%category/g, tags[tag]) + '\n'
       for (let menu of groups[tag]) {
         for (let help of menu.help)
-          _text += body.replace(/%cmd/g, menu.prefix ? help : '%p' + help).replace(/%islimit/g, menu.limit ? ' (Limit)' : '')  + '\n'
+          _text += body.replace(/%cmd/g, menu.prefix ? help : '%p' + help).replace(/%islimit/g, menu.limit ? ' (Coin)' : '')  + '\n'
       }
       _text += footer + '\n'
     }
@@ -115,9 +121,15 @@ let handler  = async (m, { conn, usedPrefix: _p }) => {
       readmore: readMore
     }
     text = text.replace(new RegExp(`%(${Object.keys(replace).join`|`})`, 'g'), (_, name) => replace[name])
-    conn.reply(m.chat, text.trim(), m)
+   // conn.reply(m.chat, text.trim(), m)
+   conn.fakeReply(m.chat, text.trim(), '0@s.whatsapp.net', `𝑫𝒆𝒗: 𝑯𝒂𝒊𝒏𝒋𝒌𝒖 | Instɑ: @gɑstonvɑinstein`, 'status@broadcast', m.chat ? m.chat : false, {
+                    contextInfo: {
+                        mentionedJid: '0@s.whatsapp.net',
+                        participant: '0@s.whatsapp.net'
+                    }
+                })
   } catch (e) {
-    conn.reply(m.chat, 'Maaf, menu sedang error', m)
+    conn.reply(m.chat, 'Lo sentimos, el menú tiene un error', m)
     throw e
   }
 }
@@ -129,6 +141,7 @@ handler.mods = false
 handler.premium = false
 handler.group = false
 handler.private = false
+handler.limit = true
 
 handler.admin = false
 handler.botAdmin = false

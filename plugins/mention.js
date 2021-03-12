@@ -1,14 +1,15 @@
 let handler = async (m, { conn, text }) => {
-  if (!text) throw 'Tidak ada teks'
+  if (!text) throw 'Sin texto'
   m.reply(text, false, {
     contextInfo: {
       mentionedJid: conn.parseMention(text)
     }
   })
 }
-handler.help = ['mention <teks>']
+handler.help = ['mention <texto>']
 handler.tags = ['tools']
+handler.limit = true
 
-handler.command = /^mention$/i
+handler.command = /^mentiin$/i
 
 module.exports = handler
